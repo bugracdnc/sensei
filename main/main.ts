@@ -32,7 +32,8 @@ async function createWindow() {
         width: 1000,
         height: 600,
         webPreferences: {
-            preload: path.join(appDir, "dist-electron/preload.js"),
+            webSecurity: false,
+            preload: path.join(appDir, "dist-electron/main/preload.js"),
         },
     });
 
@@ -40,7 +41,7 @@ async function createWindow() {
         await mainWindow.loadURL("http://localhost:5173");
         mainWindow.webContents.openDevTools();
     } else {
-        await mainWindow.loadFile(path.join(appDir, "../dist/index.html"));
+        await mainWindow.loadFile(path.join(appDir, "./dist/index.html"));
     }
 }
 
