@@ -1,12 +1,15 @@
 {
   "name": "sensei",
+  "author": "Buğra Çalışkandinç",
+  "description": "A small app to add/remove classes and students to randomly select amongst them to participate in class",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "main": "main/main.ts",
   "scripts": {
-    "dev": "concurrently \"vite\" \"cross-env NODE_ENV=development electron .\"",
-    "build": "vite build && tsc -p tsconfig.main.json && electron-builder",
+    "dev": "tsc -p tsconfig.main.json && concurrently \"vite\" \"cross-env NODE_ENV=development electron .\"",
+    "start": "concurrently \"vite\" \"cross-env NODE_ENV=production electron .\"",
+    "build": "tsc -p tsconfig.main.json && vite build && electron-builder",
     "lint": "eslint .",
     "preview": "vite preview"
   },
