@@ -32,7 +32,6 @@ async function createWindow() {
         width: 1000,
         height: 600,
         webPreferences: {
-            webSecurity: false,
             preload: path.join(appDir, "dist-electron/main/preload.js"),
         },
     });
@@ -60,7 +59,7 @@ ipcMain.handle("save-class", async (_event, cls: Classes) => {
     try {
         const filepath = path.join(classesDir, `${cls.className}.json`);
         await fs.writeFile(filepath, JSON.stringify(cls, null, 2), "utf-8");
-        log(`Saved '${cls.className}' to '${filepath}'`);
+        await log(`Saved '${cls.className}' to '${filepath}'`);
         return filepath;
     } catch (err) {
         await log(`Error saving class: ${err}`);
@@ -83,7 +82,7 @@ ipcMain.handle("list-classes", async () => {
             })
         );
 
-        log(`Loaded ${classes.length} classes`);
+        await log(`Loaded ${classes.length} classes`);
         return classes;
     } catch (err) {
         await log(`Error listing classes: ${err}`);

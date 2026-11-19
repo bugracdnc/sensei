@@ -26,9 +26,9 @@ function App() {
   const addClass = async (cls: Classes) => {
     try {
       const path = await window.electronAPI.saveClass(cls);
-      log(`Saved class ${cls.className} at: ` + path);
+      await log(`Saved class ${cls.className} at: ` + path);
     } catch (err) {
-      log(`Error saving class: ${err}`);
+      await log(`Error saving class: ${err}`);
     }
   };
 
@@ -43,17 +43,17 @@ function App() {
       await window.electronAPI.removeClass(className);
       await getClasses();
     } catch (err) {
-      log(`Error removing class: ${err}`);
+      await log(`Error removing class: ${err}`);
     }
   };
 
   const getClasses = useCallback(async () => {
     try {
       const classes = await window.electronAPI.listClasses();
-      log(`Setting classes list with ${classes.length} items...`);
+      await log(`Setting classes list with ${classes.length} items...`);
       setClassesList(classes);
     } catch (err) {
-      log(`Error loading classes: ${err}`);
+      await log(`Error loading classes: ${err}`);
     }
   }, []);
 
@@ -72,7 +72,7 @@ function App() {
       studentCount: 0,
     };
     setInputtedValue(""); // reset input
-    log(`Trying to add the class ${cls.className}`);
+    await log(`Trying to add the class ${cls.className}`);
     await addClass(cls);
     await getClasses(); // to refresh after saving
   }
